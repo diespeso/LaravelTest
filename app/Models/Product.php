@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models;
+use App\Models\ProductReview;
 
 class Product extends Model
 {
@@ -20,6 +20,6 @@ class Product extends Model
 
     public function product_reviews()
     {
-        return $this->hasMany(Models\ProductReview::class);
+        return $this->hasMany(ProductReview::class);
     }
 }

@@ -21,7 +21,7 @@ class ShowController extends Controller
     {
         $this->id = $id;
         // works
-        $found = ProductReview::where([['product_id', $productId], ['id', $id]])->first();
+        $found = ProductReview::where([['product_id', $productId], ['id', $id]])->first(); // ejempplo de uso, en realidad seria mejor buscar por id directamente
 
         //subqueries
         /* $found = Product::with(['product_reviews' => function ($query) {

@@ -18,14 +18,19 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request, $productId)
     {
-        $found = Product::with('product_reviews')->find($productId);
-        $status = 200;
-        if (!$found) {
-            $status = 409;
+        try {
+            $found = Product::with('product_reviews')->find($productId)->product_reviews;
+            $status = 200;
+            if (!$found) {
+                $status = 409;
+            }
+    
+            return response()->json([
+                'data' => $found,
+            ], $status);
+        } catch (\Exception $e) {
+           echo $e;
         }
 
-        return response()->json([
-            'data' => $found,
-        ], $status);
     }
 }

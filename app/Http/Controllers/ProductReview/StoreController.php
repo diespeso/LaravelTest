@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\ProductReview;
+use App\Models\Product;
 
 class StoreController extends Controller
 {
@@ -15,20 +16,26 @@ class StoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $productId)
     {
-        $createBody = $request->all();
-
-        $created = new ProductReview($createBody);
-
-        if (!$created->save()) {
+        try {
+            $createBody = $request->all();
+            $createObj = new ProductReview($createBody);
+    
+            $base = Product::find($productId);
+    
+            if (!$base->product_reviews()->save($createObj)) {
+                return response()->json([
+                    'data' => null,
+                ], 500);
+            }
+    
             return response()->json([
-                'data' => null,
+                'data' => $createObj->refresh(),
             ]);
+        } catch(\Exception $e) {
+            echo $e;
         }
 
-        return response()->json([
-            'data' => $created->refresh(),
-        ]);
     }
 }
