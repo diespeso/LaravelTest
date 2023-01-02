@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductImageController;
 use App\Models\ProductReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,3 +48,8 @@ Route::get('v1/product-reviews/{productReviewId}/images', [ReviewImageController
 Route::get('v1/product-reviews/{productReviewId}/images/{id}', [ReviewImageController::class, 'show']);
 Route::patch('v1/product-reviews/{productReviewId}/images/{id}', [ReviewImageController::class, 'update']);
 Route::post('v1/product-reviews/{productReviewId}/images', [ReviewImageController::class, 'store']);
+
+Route::get('v1/products/{productId}/images', [ProductImageController::class, 'index']);
+Route::get('v1/products/{productId}/images/{id}', [ProductImageController::class, 'show']);
+Route::patch('v1/products/{productId}/images/{id}', [ProductImageController::class, 'update']);
+Route::post('v1/products/{productId}/images', [ProductImageController::class, 'store']);

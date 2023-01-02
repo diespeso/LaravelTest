@@ -47,7 +47,7 @@ class ReviewImageRepository {
 
     public function patchFromParent($parentId, $id, $patchObject) {
         $found = $this->showFromParent($parentId, $id);
-        if(!$found || !$found->update($patchObject)) {
+        if (!$found || !$found->update($patchObject)) {
             return null;
         }
         return $found->refresh();

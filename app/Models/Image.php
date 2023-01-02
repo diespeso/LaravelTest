@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\ReviewImage;
+use App\Models\ProductImage;
 
 class Image extends Model
 {
@@ -15,5 +16,9 @@ class Image extends Model
 
     public function review_image() {
         return $this->belongsTo(ReviewImage::class. 'review_id');
+    }
+
+    public function product_image() {
+        return $this->belongsTo(ProductImage::class, 'product_id');
     }
 }
