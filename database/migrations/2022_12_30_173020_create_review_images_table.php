@@ -37,10 +37,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('review_images', function (Blueprint $table) {
-            $table->dropForeign(['product_review_id']);
-            $table->dropForeign(['image_id']);
-        });
+        if (DB::getDriverName() !== 'sqlite') {
+            Schema::table('review_images', function (Blueprint $table) {
+                $table->dropForeign(['product_review_id']);
+                $table->dropForeign(['image_id']);
+            });
+        }
         Schema::dropIfExists('review_images');
     }
 };

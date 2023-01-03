@@ -30,6 +30,6 @@ class Storecontroller extends Controller
 
         return response()->json([
             'data' => $created,
-        ]);
+        ], 201);
     }
 }
