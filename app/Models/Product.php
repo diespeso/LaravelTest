@@ -17,7 +17,6 @@ class Product extends Model
 
     protected $attributes = [
         'description' => '',
-        'imageUrl' => null,
     ];
 
     public function product_reviews()

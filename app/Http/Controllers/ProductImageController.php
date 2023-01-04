@@ -57,7 +57,7 @@ class ProductImageController extends Controller
      */
     public function store(StoreProductImageRequest $request, int $productId): JsonResponse
     {
-        $result = $this->productImages->storeFromParent($productId, $request->all());
+        $result = $this->productImages->storeFromParent($productId, $request->json()); // TODO: empezara usar json en lugar de all
 
         return response()->json([
             'data' => $result,
@@ -105,7 +105,7 @@ class ProductImageController extends Controller
      */
     public function update(UpdateProductImageRequest $request, int $productId, int $id): JsonResponse
     {
-        $updated = $this->productImages->patchFromParent($productId, $id, $request->all());
+        $updated = $this->productImages->patchFromParent($productId, $id, $request);
         // WONT UPDATE bridge table, maybe add a query param for that?
         return response()->json([
             'data' => $updated,

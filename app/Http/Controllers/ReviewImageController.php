@@ -27,10 +27,10 @@ class ReviewImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $productReviewId): JsonResponse
+    public function index(Request $request, int $productReviewId): JsonResponse
     {
         $images = $this->reviewImages->indexFromParent($productReviewId);
-
+        error_log($images);
         return response()->json([
             'data' => $images,
         ]);

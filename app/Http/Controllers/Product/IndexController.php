@@ -11,14 +11,20 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Providers\Repositories\ProductRepository;
+use App\Providers\Repositories\ProductImageRepository;
 
 class IndexController extends Controller
 {
 
     private ProductRepositoryInterface $products;
+    private ProductImageRepository $productImages;
 
-    public function __construct(ProductRepository $products) {
+    public function __construct(
+        ProductRepository $products,
+        ProductImageRepository $productImages,
+        ) {
         $this->products = $products;
+        $this->productImages = $productImages;
     }
     /**
      * Handle the incoming request.
@@ -28,7 +34,15 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $found = $this->products->index();
+        $found = null;
+        if ($request->query('with_main_image')) {
+            error_log('here i test');
+            error_log($found);
+            $found = $this->productImages->indexProductMainImage();
+        } else {
+            $found = $this->products->index();
+        }
+        
 
         return response()->json([
             'data' => $found,

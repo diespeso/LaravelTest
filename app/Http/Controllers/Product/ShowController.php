@@ -13,14 +13,21 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 
 use App\Providers\Repositories\ProductRepository;
+use App\Providers\Repositories\ProductImageRepository;
 
 class ShowController extends Controller
 {
 
-    private GenericRepositoryInterface $products;
+    // private GenericRepositoryInterface $products;
+    protected ProductRepository $products;
+    protected ProductImageRepository $productImages;
 
-    public function __construct(ProductRepository $products) {
+    public function __construct(
+        ProductRepository $products,
+        ProductImageRepository $productImages,
+        ) {
         $this->products = $products;
+        $this->productImages = $productImages;
     }
     /**
      * Handle the incoming request.
@@ -33,6 +40,12 @@ class ShowController extends Controller
         // $found = Product::find($id);
         try {
             $found = $this->products->show($id);
+
+            if ($request->query('with_main_image')) {
+                $image = $this->productImages->showProductMainImage($id);
+                $found->image = $image;
+                // return response()->json(['data' => 32]);
+            }
     
             $status = 200;
     

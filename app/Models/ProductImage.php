@@ -18,6 +18,10 @@ class ProductImage extends Model
         'isMain' => false,
     ];
 
+    protected $casts = [
+        'isMain' => 'boolean',
+    ];
+
     public function product() {
         return $this->belongsTo(Product::class, 'product_id');
     }
