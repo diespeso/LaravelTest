@@ -17,7 +17,7 @@ class ProductImageFactory extends Factory
     public function definition()
     {
         return [
-            //
+            //TODO:_ https://stackoverflow.com/questions/40829086/defining-laravel-foreign-keys-with-model-factories-one-to-one-one-to-many-rel
         ];
     }
 }

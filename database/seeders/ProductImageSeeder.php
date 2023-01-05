@@ -8,7 +8,9 @@ use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\ProductImage;
-
+/**
+ * Seeder for productImage that runs both Image and Product. (standalone)
+ */
 class ProductImageSeeder extends Seeder
 {
     /**
@@ -60,8 +62,9 @@ class ProductImageSeeder extends Seeder
         
         foreach ($dynamicProducts as $key => $value) {
             ProductImage::factory()->create([
-                'image_id' => $dynamicImages[0]->id,
+                'image_id' => $dynamicImages[$key]->id,
                 'product_id' => $value->id,
+                'isMain' => true,
             ]);
         }
     }

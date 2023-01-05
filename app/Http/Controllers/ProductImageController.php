@@ -17,7 +17,7 @@ class ProductImageController extends Controller
 
     public function __construct(ProductImageRepository $productImages) {
         $this->productImages = $productImages;
-        $this->isFull = filter_var(request()->query('full'), FILTER_VALIDATE_BOOLEAN);
+        $this->isFull = filter_var(request()->query('full'), FILTER_VALIDATE_BOOLEAN); // FIXME: no funciona ya con full, quizas ya no sea necesario idk
     }
 
     /**
