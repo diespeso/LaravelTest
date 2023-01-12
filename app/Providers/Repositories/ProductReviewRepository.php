@@ -39,6 +39,16 @@ class ProductReviewRepository extends GenericRepository {
 
     }
 
+    public function indexFromParentStats($parentId) {
+        $mainModel = $this->model();
+        $average = $mainModel::where('product_id', $parentId)
+            ->groupBy('product_id');
+        return [
+            'average' => floatval($average->avg('score')),
+            'count' => $average->count('score'),
+        ];
+    }
+
     public function showFromParent($parentId, $id) {
         return $this->model()::with('images')->where([['product_id', $parentId], ['id', $id]])
             ->first() ?? null;

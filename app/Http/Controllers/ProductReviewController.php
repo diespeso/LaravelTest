@@ -19,14 +19,7 @@ class ProductReviewController extends Controller
     public function index(Request $request, $productId) {
         $index = $this->products->indexFromParent($productId);
         $info = new \stdClass();
-        if($request->query('average')) {
-            $avg = $this->products->model()::avg('score');
-            $info->average = $avg;
-        }
-        if ($request->query('count')) {
-            $count = $this->products->model()::count();
-            $info->count = $count;
-        }
+        $info = $this->products->indexFromParentStats($productId);
         return response()->json([
             'data' => $index,
             'info' => $info,
@@ -35,7 +28,6 @@ class ProductReviewController extends Controller
 
     public function show(Request $request, $productId, $id) {
         $found = $this->products->showFromParent($productId, $id);
-        error_log($found);
         return response()->json([
             'data' => $found,
         ]);

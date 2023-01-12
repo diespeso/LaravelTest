@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\ProductImageController;
 use App\Models\ProductReview;
+use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Product;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ReviewImageController;
+use App\http\Controllers\ShoppingCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +55,8 @@ Route::get('v1/products/{productId}/images', [ProductImageController::class, 'in
 Route::get('v1/products/{productId}/images/{id}', [ProductImageController::class, 'show']);
 Route::patch('v1/products/{productId}/images/{id}', [ProductImageController::class, 'update']);
 Route::post('v1/products/{productId}/images', [ProductImageController::class, 'store']);
+
+Route::get('v1/shopping-carts', [ShoppingCartController::class, 'index']);
+Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
+Route::get('v1/shopping-carts/{id}', [ShoppingCartController::class, 'show']);
+Route::patch('v1/shopping-carts/{id}', [ShoppingCartController::class, 'update']);

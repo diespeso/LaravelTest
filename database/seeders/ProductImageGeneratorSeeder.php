@@ -38,12 +38,7 @@ class ProductImageGeneratorSeeder extends Seeder
                     ]);
                     $bind->save();
                 });
-            /* error_log($instances);
-            $bind = new ProductImage([
-                'product_id' => $productId
-            ])*/
         }
-        error_log($productIds);
     }
 
 }
