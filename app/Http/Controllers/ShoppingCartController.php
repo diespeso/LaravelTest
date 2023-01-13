@@ -105,8 +105,11 @@ class ShoppingCartController extends Controller
      * @param  \App\Models\shoppingCart  $shoppingCart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(shoppingCart $shoppingCart)
+    public function destroy(shoppingCart $shoppingCart, int $id): JsonResponse
     {
-        //
+        $deleted = $this->shoppingCarts->destroy($id);
+        return response()->json([
+            'data' => new \StdClass(),
+        ], $deleted ? 200 : 500);
     }
 }

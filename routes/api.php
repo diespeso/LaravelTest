@@ -60,3 +60,4 @@ Route::get('v1/shopping-carts', [ShoppingCartController::class, 'index']);
 Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
 Route::get('v1/shopping-carts/{id}', [ShoppingCartController::class, 'show']);
 Route::patch('v1/shopping-carts/{id}', [ShoppingCartController::class, 'update']);
+Route::delete('v1/shopping-carts/{id}', [ShoppingCartController::class, 'destroy']);

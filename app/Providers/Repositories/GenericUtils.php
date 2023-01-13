@@ -35,7 +35,7 @@ class GenericUtils {
     public static function destroy($model, $id) {
         $destroyInstance = $model::find($id);
         if (!$destroyInstance || !$destroyInstance->delete()) {
-            echo "failed to destroy instance";
+            error_log("failed to destroy instance");
             return false;
         }
         return true;
