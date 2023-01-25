@@ -12,6 +12,8 @@ use Database\Seeders\ShoppingCartSeeder;
 use Database\Seeders\ProductSeeder;
 use Database\Seeders\ProductImageSeeder;
 
+use App\Models\User;
+
 class ShoppingCartApiTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations, CreatesApplication;
@@ -22,7 +24,7 @@ class ShoppingCartApiTest extends TestCase
      */
     public function test_index_full_works()
     {
-        // $this->seed(ProductSeeder::class);
+        $user = User::factory()->create()->save();
         $this->seed(ProductImageSeeder::class);
         $this->seed(ShoppingCartSeeder::class);
         $response = $this->get('api/v1/shopping-carts');

@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ShoppingCart;
+use App\Policies\ShoppingCartPolicy;
+
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        ShoppingCart::class => ShoppingCartPolicy::class,
     ];
 
     /**
@@ -23,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        error_log('checking here');
         $this->registerPolicies();
 
         //

@@ -21,6 +21,10 @@ return new class extends Migration
             $table->index('product_id');
             $table->foreign('product_id')->references('id')->on('products');
 
+            $table->unsignedBigInteger('user_id');
+            $table->index('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
@@ -35,6 +39,7 @@ return new class extends Migration
         if (DB::getDriverName() !== 'sqlite') {
             Schema::table('product_images', function (Blueprint $table) {
                 $table->dropForeign(['product_id']);
+                $table->dropForeign(['user_id']);
             });
         }
         Schema::dropIfExists('shopping_carts');

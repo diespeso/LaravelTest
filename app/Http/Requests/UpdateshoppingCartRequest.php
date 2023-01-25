@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Policies\ShoppingCartPolicy;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateshoppingCartRequest extends FormRequest
@@ -13,6 +15,9 @@ class UpdateshoppingCartRequest extends FormRequest
      */
     public function authorize()
     {
+        error_log('enter auth check');
+        error_log($this->user['id']);
+        error_log($this);
         return true;
     }
 

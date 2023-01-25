@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Models\shoppingCart;
+use App\Models\ShoppingCart;
 use App\Models\User;
 
 class ShoppingCartPolicy
@@ -19,6 +19,8 @@ class ShoppingCartPolicy
     public function viewAny(User $user)
     {
         //
+        error_log('test this');
+        return false;
     }
 
     /**
@@ -31,6 +33,8 @@ class ShoppingCartPolicy
     public function view(User $user, shoppingCart $shoppingCart)
     {
         //
+        error_log('test this');
+        return false;
     }
 
     /**
@@ -51,9 +55,11 @@ class ShoppingCartPolicy
      * @param  \App\Models\shoppingCart  $shoppingCart
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, shoppingCart $shoppingCart)
+    public function update(User $user, ShoppingCart $shoppingCart)
     {
-        //
+        error_log('testing update bad');
+        error_log($user);
+        return false;
     }
 
     /**

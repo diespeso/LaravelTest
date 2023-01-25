@@ -49,6 +49,8 @@ class ShoppingCartController extends Controller
      */
     public function store(StoreshoppingCartRequest $request): JsonResponse
     {
+        //TODO: provisional, once were using auth change this
+        $request['user_id'] = 1;
         // use request->json() in the future TODO
         $created = $this->shoppingCarts->store($request->all());
 
@@ -92,6 +94,8 @@ class ShoppingCartController extends Controller
      */
     public function update(UpdateshoppingCartRequest $request, int $id): JsonResponse
     {
+        error_log('enter controller');
+        error_log($request->user()->can('update'));
         $found = $this->shoppingCarts->patch($id, $request->all());
 
         return response()->json([
