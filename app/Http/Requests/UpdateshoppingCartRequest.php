@@ -16,7 +16,6 @@ class UpdateshoppingCartRequest extends FormRequest
     public function authorize()
     {
         error_log('enter auth check');
-        error_log($this->user['id']);
         error_log($this);
         return true;
     }

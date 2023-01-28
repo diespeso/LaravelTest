@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateshoppingCartRequest;
 use App\Providers\Repositories\ShoppingCartRepository;
 use Illuminate\Http\JsonResponse;
 
+use JWTAuth;
+
 class ShoppingCartController extends Controller
 {
     protected ShoppingCartRepository $shoppingCarts;
@@ -94,9 +96,10 @@ class ShoppingCartController extends Controller
      */
     public function update(UpdateshoppingCartRequest $request, int $id): JsonResponse
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         error_log('enter controller');
-        error_log($request->user()->can('update'));
         $found = $this->shoppingCarts->patch($id, $request->all());
+        error_log($this->user);
 
         return response()->json([
             'data' => $found,
