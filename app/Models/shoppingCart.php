@@ -1,5 +1,7 @@
 <?php
-
+// note: added constraint for unique product in card in some dbs (manually for now)
+// TODO: add constraint for unique(product_id, user_id)
+// fix seeder for shopping carts
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

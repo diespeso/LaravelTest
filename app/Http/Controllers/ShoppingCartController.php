@@ -24,9 +24,18 @@ class ShoppingCartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(StoreshoppingCartRequest $req): JsonResponse
     {
-        $index = $this->shoppingCarts->indexFull();
+        $full = $req->query->get('full');
+        
+        if ($full) { // todo: adaptar front
+            $fullCart = $this->shoppingCarts->indexFromUserFull(request()->user->id);
+            return response()->json([
+                'data' => $fullCart,
+            ]);
+        }
+
+        $index = $this->shoppingCarts->indexFromUser(request()->user->id);
 
         return response()->json([
             'data' => $index,
@@ -52,7 +61,8 @@ class ShoppingCartController extends Controller
     public function store(StoreshoppingCartRequest $request): JsonResponse
     {
         //TODO: provisional, once were using auth change this
-        $request['user_id'] = 1;
+        error_log(request()->user);
+        $request['user_id'] = request()->user->id;
         // use request->json() in the future TODO
         $created = $this->shoppingCarts->store($request->all());
 

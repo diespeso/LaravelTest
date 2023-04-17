@@ -11,6 +11,8 @@ use App\Http\Controllers\Product;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ReviewImageController;
 use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\User\SignUpController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('jwt.verify')->group(function() {
+    Route::get('v1/shopping-carts', [ShoppingCartController::class, 'index']);
+    Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
+});
 
 
 Route::post('v1/products', Product\Storecontroller::class);
@@ -59,10 +65,14 @@ Route::get('v1/products/{productId}/images/{id}', [ProductImageController::class
 Route::patch('v1/products/{productId}/images/{id}', [ProductImageController::class, 'update']);
 Route::post('v1/products/{productId}/images', [ProductImageController::class, 'store']);
 
-Route::get('v1/shopping-carts', [ShoppingCartController::class, 'index']);
-Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
+
+// Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
 Route::get('v1/shopping-carts/{id}', [ShoppingCartController::class, 'show']);
+Route::patch('v1/shopping-carts/{id}', [ShoppingCartController::class, 'update']);
 
 Route::delete('v1/shopping-carts/{id}', [ShoppingCartController::class, 'destroy']);
 
 Route::post('v1/login', LoginControler::class);
+Route::post('v1/signup', SignUpController::class);
+
+Route::get('v1/search', [SearchController::class, 'show']);

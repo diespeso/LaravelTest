@@ -84,4 +84,12 @@ class ProductReviewRepository extends GenericRepository {
         }
         return $createObject->refresh();
     }
+
+    public function getScoreAverageFromProductId(int $productId): float {
+        $model = $this->model();
+        $scoreAverage = ProductReview::where('product_id', $productId)
+            ->groupBy('product_id')
+            ->avg('score');
+        return $scoreAverage ?? 0;
+    }
 }

@@ -22,8 +22,17 @@ class LoginControler extends Controller
     {
         $params = $request->only(['email', 'password']);
         $token = JWTAuth::attempt($params);
-        return response()->json([
-            'token' => $token,
-        ]);
+        
+        $response = [];
+
+        if ($token) {
+            $response['data'] = [
+                'token' => $token,
+            ];
+        } else {
+            $response['error'] = 'failed to login';
+        }
+
+        return response()->json($response, array_key_exists('data', $response) ? 200 : 403);
     }
 }
