@@ -54,6 +54,7 @@ class ShowController extends Controller
             }
     
             return response()->json([
+                'error' => $found == null,
                 'data' => $found,
             ], $status);
         } catch(\Exception $e) {
