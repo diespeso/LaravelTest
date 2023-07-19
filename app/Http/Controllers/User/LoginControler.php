@@ -26,9 +26,11 @@ class LoginControler extends Controller
         $response = [];
 
         if ($token) {
-            $response['data'] = [
+            $found = User::where('email', '=', $params['email'])->first();
+            /*$response['data'] = [
                 'token' => $token,
-            ];
+            ];*/
+            $response['data'] = $found;
         } else {
             $response['error'] = 'failed to login';
         }

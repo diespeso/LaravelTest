@@ -55,6 +55,7 @@ class ShowController extends Controller
     
             $found["images"] = [];
             return response()->json([
+                'error' => $found == null,
                 'data' => $found,
             ], $status);
         } catch(\Exception $e) {
