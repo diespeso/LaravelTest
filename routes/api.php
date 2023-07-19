@@ -14,6 +14,14 @@ use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\User\SignUpController;
 use App\Http\Controllers\SearchController;
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductCategoryController;
+
+// testing 
+use App\Models\User;
+use App\Models\Rol;
+use App\Models\Permission;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -65,6 +73,7 @@ Route::get('v1/products/{productId}/images/{id}', [ProductImageController::class
 Route::patch('v1/products/{productId}/images/{id}', [ProductImageController::class, 'update']);
 Route::post('v1/products/{productId}/images', [ProductImageController::class, 'store']);
 
+Route::get('v1/products/{productId}/categories', [ProductCategoryController::class, 'index']);
 
 // Route::post('v1/shopping-carts', [ShoppingCartController::class, 'store']);
 Route::get('v1/shopping-carts/{id}', [ShoppingCartController::class, 'show']);
@@ -76,3 +85,20 @@ Route::post('v1/login', LoginControler::class);
 Route::post('v1/signup', SignUpController::class);
 
 Route::get('v1/search', [SearchController::class, 'show']);
+
+Route::get('v1/categories', [CategoryController::class, 'index']);
+Route::get('v1/categories/{id}', [CategoryController::class, 'show']);
+
+Route::get('v1/test', function (Request $request) {
+
+    //$found = User::with("roles")->get();
+    $found = Rol::with("permissions")->get();
+    $found2 = Permission::all();
+    $found3 = User::with("roles")->get();
+
+    return response()->json([
+        "data" => $found,
+        "data2" => $found2,
+        "data3" => $found3[0]->roles,
+    ]);
+});

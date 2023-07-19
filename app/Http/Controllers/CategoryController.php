@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,7 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $index = Category::all();
+
+        return response()->json([
+            'data' => $index,
+        ]);
     }
 
     /**
@@ -45,9 +50,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Category $category, int $id): JsonResponse
     {
-        //
+        $found = Category::where('id', $id)->get();
+
+        return response()->json([
+            'data' => $found,
+        ]);
     }
 
     /**

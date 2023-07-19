@@ -43,7 +43,6 @@ class IndexController extends Controller
             $found = $this->products->index();
         }
         
-
         return response()->json([
             'data' => $found,
         ]);

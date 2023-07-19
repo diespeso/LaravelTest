@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Providers\Repositories\Interfaces\GenericRepositoryInterface;
 use App\Providers\Repositories\ProductRepository;
 
+use App\Models\ProductCategory;
+
 class Storecontroller extends Controller
 {
     private GenericRepositoryInterface $products;
@@ -25,8 +27,19 @@ class Storecontroller extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
+        print_r($request->all());
+
         $creationBody = $request->all();
         $created = $this->products->store($creationBody);
+
+        if ($request->has("categories")) {
+            foreach($creationBody["categories"] as $categoryId) {
+                ProductCategory::create([
+                    "product_id" => $created["id"],
+                    "category_id" => $categoryId,
+                ]);
+            }
+        }
 
         return response()->json([
             'data' => $created,

@@ -53,6 +53,7 @@ class ShowController extends Controller
                 $status = 409;
             }
     
+            $found["images"] = [];
             return response()->json([
                 'data' => $found,
             ], $status);

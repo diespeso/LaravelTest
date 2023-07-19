@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
@@ -13,9 +16,19 @@ class ProductCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $productId): JsonResponse
     {
-        //
+        /*$found = Product::with('categories')
+        ->where('id', $productId)
+        ->get()->pluck('categories')->first();*/
+
+        $found = Product::where('id', $productId)
+            ->with('categories')
+            ->get()->pluck('categories')->first();
+
+        return response()->json([
+            'data' => $found,
+        ]);
     }
 
     /**
